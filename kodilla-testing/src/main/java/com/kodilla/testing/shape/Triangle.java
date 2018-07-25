@@ -4,10 +4,12 @@ import java.util.Objects;
 
 public class Triangle implements Shape {
 
-    private int field;
+    private double base;
+    private double height;
 
-    public Triangle(int field) {
-        this.field = field;
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
     }
 
     @Override
@@ -16,8 +18,9 @@ public class Triangle implements Shape {
     }
 
     @Override
-    public int getField() {
-        return field;
+    public double getArea() {
+
+        return (base * height) / 2;
     }
 
     @Override
@@ -25,17 +28,18 @@ public class Triangle implements Shape {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Triangle triangle = (Triangle) o;
-        return field == triangle.field;
+        return Double.compare(triangle.base, base) == 0 &&
+                Double.compare(triangle.height, height) == 0;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(field);
+        return Objects.hash(base, height);
     }
 
     @Override
     public String toString() {
-        return "Triangle " + "(" + field + ")";
+        return getShapeName() + " (area: " + String.format("%.2f", getArea()) + ")";
     }
 }

@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class Square implements Shape {
 
-    private int field;
+    private double side;
 
-    public Square(int field) {
-        this.field = field;
+    public Square(double side) {
+        this.side = side;
     }
 
     @Override
@@ -16,8 +16,9 @@ public class Square implements Shape {
     }
 
     @Override
-    public int getField() {
-        return field;
+    public double getArea() {
+
+        return Math.pow(side, 2);
     }
 
     @Override
@@ -25,17 +26,17 @@ public class Square implements Shape {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Square square = (Square) o;
-        return field == square.field;
+        return side == square.side;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(field);
+        return Objects.hash(side);
     }
 
     @Override
     public String toString() {
-        return "Square " + "(" + field + ")";
+        return getShapeName() + " (area: " + String.format("%.2f", getArea()) + ")";
     }
 }

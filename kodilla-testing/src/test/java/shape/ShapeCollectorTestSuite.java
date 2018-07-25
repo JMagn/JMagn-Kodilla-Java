@@ -11,34 +11,34 @@ public class ShapeCollectorTestSuite {
         // Given
         ShapeCollector shapeCollector = new ShapeCollector();
         Shape circle = new Circle(1);
-        Assert.assertEquals(0, shapeCollector.getShapesList().size());
+        Assert.assertEquals(0, shapeCollector.getShapes().size());
         // When
         shapeCollector.addFigure(circle);
         Shape currentShape = shapeCollector.getFigure(0);
         // Then
         Assert.assertEquals(circle, currentShape);
-        Assert.assertEquals(1, shapeCollector.getShapesList().size());
+        Assert.assertEquals(1, shapeCollector.getShapes().size());
     }
 
     @Test
     public void testRemoveFigure() {
         // Given
         ShapeCollector shapeCollector = new ShapeCollector();
-        Shape triangle = new Triangle(1);
+        Shape triangle = new Triangle(1, 1);
         shapeCollector.addFigure(triangle);
-        Assert.assertEquals(1, shapeCollector.getShapesList().size());
+        Assert.assertEquals(1, shapeCollector.getShapes().size());
         // When
         boolean result = shapeCollector.removeFigure(triangle);
         // Then
         Assert.assertTrue(result);
-        Assert.assertEquals(0, shapeCollector.getShapesList().size());
+        Assert.assertEquals(0, shapeCollector.getShapes().size());
     }
 
     @Test
     public void testRemoveFigureEmptyList() {
         // Given
         ShapeCollector shapeCollector = new ShapeCollector();
-        Shape triangle = new Triangle(1);
+        Shape triangle = new Triangle(1, 1);
         // When
         boolean result = shapeCollector.removeFigure(triangle);
         // Then
@@ -56,15 +56,15 @@ public class ShapeCollectorTestSuite {
         // Then
         Assert.assertEquals(square, currentShape);
     }
+
     @Test
     public void testShowFigures() {
         // Given
         ShapeCollector shapeCollector = new ShapeCollector();
         shapeCollector.addFigure(new Square(1));
-        shapeCollector.addFigure(new Triangle(1));
+        shapeCollector.addFigure(new Triangle(1, 1));
         shapeCollector.addFigure(new Circle(1));
-        // When
+        // When & Then
         shapeCollector.showFigures();
-        // Then
     }
 }
