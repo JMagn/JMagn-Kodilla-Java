@@ -17,16 +17,15 @@ public class ShapeCollector {
     }
 
     public boolean removeFigure(Shape shape) {
-        boolean result = false;
-        if (!shapesList.isEmpty()) {
-            shapesList.remove(shape);
-            result = true;
-        }
-        return result;
+        return shapesList.remove(shape);
     }
 
     public Shape getFigure(int n) {
-        return shapesList.get(n);
+        Shape result = null;
+        if (n < shapesList.size()) {
+            result = shapesList.get(n);
+        }
+        return result;
     }
 
     public List<Shape> getShapesList() {
@@ -47,16 +46,15 @@ public class ShapeCollector {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(shapesList);
     }
 
     @Override
     public String toString() {
         String ret = "";
-        for (Shape x : shapesList) {
-            ret = ret + x + " ";
+        for (int i = 0; i < (shapesList.size() - 1); i++) {
+            ret = ret + shapesList.get(i) + " ";
         }
-        return ret;
+        return ret + (shapesList.get(shapesList.size() - 1));
     }
 }

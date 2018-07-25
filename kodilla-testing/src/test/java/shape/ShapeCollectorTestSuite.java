@@ -3,9 +3,6 @@ package shape;
 import com.kodilla.testing.shape.*;
 import org.junit.Assert;
 import org.junit.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 
 public class ShapeCollectorTestSuite {
 
@@ -63,13 +60,11 @@ public class ShapeCollectorTestSuite {
     public void testShowFigures() {
         // Given
         ShapeCollector shapeCollector = new ShapeCollector();
-        Shape square = new Square(1);
-        shapeCollector.addFigure(square);
+        shapeCollector.addFigure(new Square(1));
+        shapeCollector.addFigure(new Triangle(1));
+        shapeCollector.addFigure(new Circle(1));
         // When
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
         shapeCollector.showFigures();
         // Then
-        Assert.assertEquals("[Square (1)]", outContent.toString());
     }
 }
