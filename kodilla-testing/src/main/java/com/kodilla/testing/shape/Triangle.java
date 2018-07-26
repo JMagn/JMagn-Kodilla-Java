@@ -40,6 +40,6 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return getShapeName() + " (area: " + String.format("%.2f", getArea()) + ")";
+        return String.format("%s (area: %.2f", getShapeName(), getArea());
     }
 }
