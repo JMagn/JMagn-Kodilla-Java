@@ -11,14 +11,14 @@ public class ForumStatisctics {
 
     public void calculateAdvStatistics(Statistics statistics) {
         this.usersNumber = statistics.usersNames().size();
+        this.postsNumber = statistics.postsCount();
+        this.commentsNumber = statistics.commentsCount();
         if (usersNumber > 0) {
-            this.postsNumber = statistics.postsCount();
             this.postsPerUser = (double)postsNumber / usersNumber;
+            this.commentsPerUser = (double)commentsNumber / usersNumber;
         }
-        if (usersNumber > 0 && postsNumber > 0) {
-            this.commentsNumber = statistics.commentsCount();
-            this.commentsPerUser = commentsNumber / (double)usersNumber;
-            this.commentsPerPost = commentsNumber / postsNumber;
+        if (postsNumber > 0) {
+            this.commentsPerPost = (double)commentsNumber / postsNumber;
         }
     }
 
@@ -41,5 +41,17 @@ public class ForumStatisctics {
 
     public int getCommentsNumber() {
         return commentsNumber;
+    }
+
+    public double getPostsPerUser() {
+        return postsPerUser;
+    }
+
+    public double getCommentsPerUser() {
+        return commentsPerUser;
+    }
+
+    public double getCommentsPerPost() {
+        return commentsPerPost;
     }
 }
