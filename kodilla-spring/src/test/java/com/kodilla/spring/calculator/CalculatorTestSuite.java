@@ -19,9 +19,9 @@ public class CalculatorTestSuite {
         //When
         Calculator calculator = context.getBean(Calculator.class);
         //Then
-        Assert.assertEquals(12, calculator.add(10, 2), 000.1);
-        Assert.assertEquals(8, calculator.sub(10, 2), 000.1);
-        Assert.assertEquals(20, calculator.mul(10, 2), 000.1);
-        Assert.assertEquals(5, calculator.div(10, 2), 000.1);
+        Assert.assertEquals(12, calculator.add(10, 2), 0.001);
+        Assert.assertEquals(8, calculator.sub(10, 2), 0.001);
+        Assert.assertEquals(20, calculator.mul(10, 2), 0.001);
+        Assert.assertEquals(5, calculator.div(10, 2), 0.001);
     }
 }
