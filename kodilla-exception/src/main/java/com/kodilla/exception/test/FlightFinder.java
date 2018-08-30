@@ -5,25 +5,22 @@ import java.util.Map;
 
 public class FlightFinder {
 
-    private static final String MESSAGE = "%s available? - %b";
+    private static final String ERROR = "ERROR: %s does not exist in the database.";
 
-    public void findFlight(Flight flight) throws RouteNotFoundException {
+    private Map <String, Boolean> airports;
 
-        Map<String, Boolean> flights = new HashMap<>();
+    public FlightFinder(Map<String, Boolean> airports) {
+        this.airports = airports;
+    }
 
-        flights.put("Okecie", false);
-        flights.put("JFK", true);
-        flights.put("Charles de Gaulle", true);
-        flights.put("Heathrow", true);
+    public boolean findFlight(Flight flight) throws RouteNotFoundException {
 
-        if (flights.containsKey(flight.getArrivalAirport())) {
-
-            flights.entrySet().stream()
-                    .filter(entry -> entry.getKey().equals(flight.getArrivalAirport()))
-                    .forEach(entry -> System.out.println(String.format(MESSAGE, entry.getKey(), entry.getValue())));
-
+        if (!airports.containsKey(flight.getArrivalAirport())) {
+            throw new RouteNotFoundException(String.format(ERROR, flight.getArrivalAirport()));
+        } if (airports.get(flight.getArrivalAirport())) {
+            return true;
         } else {
-            throw new RouteNotFoundException("ERROR: Destinations database does not contain " + flight.getArrivalAirport());
+            return false;
         }
     }
 }
