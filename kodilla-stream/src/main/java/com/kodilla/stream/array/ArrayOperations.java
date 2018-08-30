@@ -9,12 +9,9 @@ public interface ArrayOperations {
         IntStream.range(0, numbers.length)
                 .forEach(i -> System.out.print(numbers[i] + " "));
 
-        OptionalDouble avg = IntStream.range(0, numbers.length)
+        return IntStream.range(0, numbers.length)
                 .map(i -> numbers[i])
-                .average();
-
-        System.out.println("\nAverage: " + avg.getAsDouble());
-
-        return avg.getAsDouble();
+                .average()
+                .orElse(0);
     }
 }
