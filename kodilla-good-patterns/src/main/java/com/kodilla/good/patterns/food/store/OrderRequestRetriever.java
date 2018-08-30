@@ -4,9 +4,6 @@ public class OrderRequestRetriever {
 
     public OrderRequest retrieve() {
 
-        HealthiestJuicesEver healthiestJuicesEver = new HealthiestJuicesEver();
-        Product orderedProduct = healthiestJuicesEver.getProducts().get(0);
-
-        return new OrderRequest(healthiestJuicesEver, orderedProduct, 60);
+        return new OrderRequest(new Product("Beatroot juice (1 l)", 8), 200);
     }
 }

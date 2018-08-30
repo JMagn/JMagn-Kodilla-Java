@@ -2,14 +2,14 @@ package com.kodilla.good.patterns.food.store;
 
 public class OrderProcessor {
 
-    public OrderDto processOrder(OrderRequest orderRequest) {
-        boolean isOrdered = orderRequest.getFoodProducer().process(orderRequest.getProduct(),
-                orderRequest.getQuantity());
+    public OrderDto processOrder(FoodProducer foodProducer, OrderRequest orderRequest) {
 
-        if (isOrdered) {
-            return new OrderDto(orderRequest.getProduct(),true);
-        } else {
-            return new OrderDto(orderRequest.getProduct(),false);
+        boolean isAvailable = foodProducer.process(orderRequest);
+
+        if(isAvailable) {
+            foodProducer.updateSupplies(orderRequest);
+            return new OrderDto(orderRequest.getProduct(), true);
         }
+        return new OrderDto(orderRequest.getProduct(), false);
     }
 }

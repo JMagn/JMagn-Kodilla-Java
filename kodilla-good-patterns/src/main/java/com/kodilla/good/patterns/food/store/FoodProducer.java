@@ -1,11 +1,14 @@
 package com.kodilla.good.patterns.food.store;
 
-import java.util.List;
+import java.util.Map;
 
 public interface FoodProducer {
 
-    boolean process(Product product, int quantity);
+    Map<Product, Integer> getProducts();
 
-    List<Product> getProducts();
+    boolean process(OrderRequest orderRequest);
 
+    void updateSupplies(OrderRequest orderRequest);
+
+    boolean checkSupplies(OrderRequest orderRequest);
 }
