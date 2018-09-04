@@ -6,12 +6,15 @@ import java.util.stream.IntStream;
 public interface ArrayOperations {
 
     static double getAverage(int[] numbers) {
-        IntStream.range(0, numbers.length)
-                .forEach(i -> System.out.print(numbers[i] + " "));
+        if (numbers != null) {
+            IntStream.range(0, numbers.length)
+                    .forEach(i -> System.out.print(numbers[i] + " "));
 
-        return IntStream.range(0, numbers.length)
-                .map(i -> numbers[i])
-                .average()
-                .orElse(0);
+            return IntStream.range(0, numbers.length)
+                    .map(i -> numbers[i])
+                    .average()
+                    .orElse(0);
+        }
+        return 0;
     }
 }
