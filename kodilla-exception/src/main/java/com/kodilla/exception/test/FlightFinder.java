@@ -1,6 +1,5 @@
 package com.kodilla.exception.test;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class FlightFinder {
@@ -17,7 +16,8 @@ public class FlightFinder {
 
         if (!airports.containsKey(flight.getArrivalAirport())) {
             throw new RouteNotFoundException(String.format(ERROR, flight.getArrivalAirport()));
-        } if (airports.get(flight.getArrivalAirport())) {
+        }
+        if (airports.get(flight.getArrivalAirport())) {
             return true;
         } else {
             return false;
