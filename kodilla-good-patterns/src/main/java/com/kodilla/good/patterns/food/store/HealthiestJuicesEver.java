@@ -27,6 +27,7 @@ public class HealthiestJuicesEver implements FoodProducer {
     @Override
     public boolean process(OrderRequest orderRequest) {
         if (checkSupplies(orderRequest)) {
+            updateSupplies(orderRequest);
             System.out.println(String.format(AVAILABLE, orderRequest.getProduct().getName(), orderRequest.getQuantity(),
                     orderRequest.getProduct().getPrice() * orderRequest.getQuantity()));
             return true;

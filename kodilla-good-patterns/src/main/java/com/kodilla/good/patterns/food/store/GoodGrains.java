@@ -26,6 +26,7 @@ public class GoodGrains implements FoodProducer {
     @Override
     public boolean process(OrderRequest orderRequest) {
         if (checkSupplies(orderRequest)) {
+            updateSupplies(orderRequest);
             System.out.println(String.format(AVAILABLE, name, orderRequest.getProduct().getName(), orderRequest.getQuantity(),
                     orderRequest.getProduct().getPrice()));
             return true;
