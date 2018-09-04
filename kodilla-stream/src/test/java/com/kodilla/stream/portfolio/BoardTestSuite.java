@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -117,8 +118,8 @@ public class BoardTestSuite {
 
         //When
         List<TaskList> undoneTasks = new ArrayList<>();
-        undoneTasks.add(new TaskList("To do"));
-        undoneTasks.add(new TaskList("In progress"));
+        undoneTasks.add(project.getTaskLists().get(0));
+        undoneTasks.add(project.getTaskLists().get(1));
         List<Task> tasks = project.getTaskLists().stream()
                 .filter(undoneTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
@@ -137,7 +138,7 @@ public class BoardTestSuite {
 
         //When
         List<TaskList> inProgressTasks = new ArrayList<>();
-        inProgressTasks.add(new TaskList("In progress"));
+        inProgressTasks.add(project.getTaskLists().get(1));
         long longTasks = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
@@ -157,29 +158,16 @@ public class BoardTestSuite {
 
         //When
         List<TaskList> inProgressTasks = new ArrayList<>();
-        inProgressTasks.add(new TaskList("In progress"));
+        inProgressTasks.add(project.getTaskLists().get(1));
 
-        int sum = project.getTaskLists().stream()
+        double avg = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
-                .map(t -> t.getCreated())
-                .map(d -> Period.between(d, LocalDate.now()).getDays())
-                .reduce(0, (all, current) -> all += current);
-
-        int quantity = project.getTaskLists().stream()
-                .filter(inProgressTasks::contains)
-                .flatMap(tl -> tl.getTasks().stream())
-                .map(t -> 1)
-                .reduce(0, (all, current) -> all += current);
-
-        double avg = 0;
-        if (quantity > 0) {
-            avg = (double) sum / quantity;
-        }
+                .map(t -> Period.between(t.getCreated(), LocalDate.now()).getDays())
+                .collect(Collectors.summarizingDouble(x -> x))
+                .getAverage();
 
         // Then
-        Assert.assertEquals(30, sum);
-        Assert.assertEquals(3, quantity);
         Assert.assertEquals(10, avg, 0.001);
     }
 }

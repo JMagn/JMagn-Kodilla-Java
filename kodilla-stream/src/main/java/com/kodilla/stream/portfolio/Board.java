@@ -2,6 +2,7 @@ package com.kodilla.stream.portfolio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class Board {
     private final List<TaskList> taskLists = new ArrayList<>();
