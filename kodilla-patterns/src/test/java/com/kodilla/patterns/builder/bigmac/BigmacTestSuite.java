@@ -14,7 +14,6 @@ public class BigmacTestSuite {
                 .chooseSauce(Bigmac.BigMacBuilder.BARBECUE)
                 .chooseIngredients("salad")
                 .build();
-        System.out.println(bigmac);
         //When
         //Then
         Assert.assertEquals(Bigmac.BigMacBuilder.WITHSESAME, bigmac.getBun());
