@@ -1,8 +1,5 @@
 package com.kodilla.good.patterns.food.store;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class GoodGrains implements FoodProducer {
 
     private static final String AVAILABLE = "Company: \"%s\", ordered product: \"%s\" (%d pieces per %.2f zl).";
@@ -10,42 +7,22 @@ public class GoodGrains implements FoodProducer {
             "Left in stock: %d piece(s).";
 
     private String name = "Good Grains Co.";
-    private Map<Product, Integer> products = new HashMap<>();
+    private GoodGrainsProductRepository repository = new GoodGrainsProductRepository();
 
-    public GoodGrains() {
-        products.put(new Product("Whole wheat bread", 5.60), 150);
-        products.put(new Product("Graham bread", 6.20 ), 80);
-        products.put(new Product("Tatarczuch bread", 11.50), 20);
-    }
-
-    @Override
-    public Map<Product, Integer> getProducts() {
-        return products;
+    public GoodGrainsProductRepository getProducts() {
+        return repository;
     }
 
     @Override
     public boolean process(OrderRequest orderRequest) {
-        if (checkSupplies(orderRequest)) {
-            updateSupplies(orderRequest);
+        if (repository.checkSupplies(orderRequest)) {
+            repository.updateSupplies(orderRequest);
             System.out.println(String.format(AVAILABLE, name, orderRequest.getProduct().getName(), orderRequest.getQuantity(),
                     orderRequest.getProduct().getPrice()));
             return true;
         }
         System.out.println(String.format(NOTAVAILABLE, orderRequest.getQuantity(), orderRequest.getProduct().getName(),
-                products.get(orderRequest.getProduct())));
-        return false;
-    }
-
-    @Override
-    public void updateSupplies(OrderRequest orderRequest) {
-        products.put(orderRequest.getProduct(), products.get(orderRequest.getProduct()) - orderRequest.getQuantity());
-    }
-
-    @Override
-    public boolean checkSupplies(OrderRequest orderRequest) {
-        if (products.get(orderRequest.getProduct()) >= orderRequest.getQuantity()) {
-            return true;
-        }
+                repository.getProducts().get(orderRequest.getProduct())));
         return false;
     }
 }
