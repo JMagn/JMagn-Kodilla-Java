@@ -6,8 +6,6 @@ import java.util.Objects;
 @Component
 public class Board {
 
-    private static final String MESSAGE = "Tasks to do: %s\nTasks in progress: %s\nTasks done: %s";
-
     private TaskList toDoList;
     private TaskList inProgressList;
     private TaskList doneList;
@@ -18,14 +16,28 @@ public class Board {
         this.doneList = doneList;
     }
 
-    public void displayTasks() {
-        System.out.println(String.format(MESSAGE, toDoList.toString(), inProgressList.toString(), doneList.toString()));
+    public void addToDoTask(String name) {
+        toDoList.addTask(name);
     }
 
-    public void addTasks() {
-        toDoList.getTasks().add("Do laundry");
-        inProgressList.getTasks().add("Learn Java");
-        doneList.getTasks().add("Wash dishes");
+    public void addInProgressTask(String name) {
+        inProgressList.addTask(name);
+    }
+
+    public void addDoneTask(String name) {
+        doneList.addTask(name);
+    }
+
+    public TaskList getToDoList() {
+        return toDoList;
+    }
+
+    public TaskList getInProgressList() {
+        return inProgressList;
+    }
+
+    public TaskList getDoneList() {
+        return doneList;
     }
 
     @Override
