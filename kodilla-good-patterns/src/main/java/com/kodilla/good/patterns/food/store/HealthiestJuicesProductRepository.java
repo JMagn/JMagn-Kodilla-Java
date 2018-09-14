@@ -15,8 +15,8 @@ public class HealthiestJuicesProductRepository {
         products.put(new Product("Apple juice (0.5 l)", 2.99), 200);
     }
 
-    public Map<Product, Integer> getProducts() {
-        return products;
+    public int getProductQuantity(OrderRequest orderRequest) {
+        return products.get(orderRequest.getProduct());
     }
 
     public void updateSupplies(OrderRequest orderRequest) {
@@ -24,29 +24,6 @@ public class HealthiestJuicesProductRepository {
     }
 
     public boolean checkSupplies(OrderRequest orderRequest) {
-        if (products.get(orderRequest.getProduct()) >= orderRequest.getQuantity()) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        HealthiestJuicesProductRepository that = (HealthiestJuicesProductRepository) o;
-        return Objects.equals(products, that.products);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(products);
-    }
-
-    @Override
-    public String toString() {
-        return "HealthiestJuicesProductRepository{" +
-                "products=" + products +
-                '}';
+        return (products.get(orderRequest.getProduct()) >= orderRequest.getQuantity()) ? true : false;
     }
 }

@@ -9,20 +9,16 @@ public class HealthiestJuicesEver implements FoodProducer {
     private String name = "Healthiest Juices Ever!";
     private HealthiestJuicesProductRepository repository = new HealthiestJuicesProductRepository();
 
-    public HealthiestJuicesProductRepository getProducts() {
-        return repository;
-    }
-
     @Override
     public boolean process(OrderRequest orderRequest) {
         if (repository.checkSupplies(orderRequest)) {
             repository.updateSupplies(orderRequest);
-            System.out.println(String.format(AVAILABLE, orderRequest.getProduct().getName(), orderRequest.getQuantity(),
-                    orderRequest.getProduct().getPrice() * orderRequest.getQuantity()));
+            System.out.println(String.format(AVAILABLE, orderRequest.getProductName(), orderRequest.getQuantity(),
+                    orderRequest.getProductPrice() * orderRequest.getQuantity()));
             return true;
         }
-        System.out.println(String.format(NOTAVAILABLE, orderRequest.getQuantity(), orderRequest.getProduct().getName(),
-                repository.getProducts().get(orderRequest.getProduct())));
+        System.out.println(String.format(NOTAVAILABLE, orderRequest.getQuantity(), orderRequest.getProductName(),
+                repository.getProductQuantity(orderRequest)));
         return false;
     }
 

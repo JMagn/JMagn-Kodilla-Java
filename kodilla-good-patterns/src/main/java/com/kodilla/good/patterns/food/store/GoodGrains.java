@@ -9,20 +9,16 @@ public class GoodGrains implements FoodProducer {
     private String name = "Good Grains Co.";
     private GoodGrainsProductRepository repository = new GoodGrainsProductRepository();
 
-    public GoodGrainsProductRepository getProducts() {
-        return repository;
-    }
-
     @Override
     public boolean process(OrderRequest orderRequest) {
         if (repository.checkSupplies(orderRequest)) {
             repository.updateSupplies(orderRequest);
-            System.out.println(String.format(AVAILABLE, name, orderRequest.getProduct().getName(), orderRequest.getQuantity(),
-                    orderRequest.getProduct().getPrice()));
+            System.out.println(String.format(AVAILABLE, name, orderRequest.getProductName(), orderRequest.getQuantity(),
+                    orderRequest.getProductPrice()));
             return true;
         }
-        System.out.println(String.format(NOTAVAILABLE, orderRequest.getQuantity(), orderRequest.getProduct().getName(),
-                repository.getProducts().get(orderRequest.getProduct())));
+        System.out.println(String.format(NOTAVAILABLE, orderRequest.getQuantity(), orderRequest.getProductName(),
+                repository.getProductQuantity(orderRequest)));
         return false;
     }
 }

@@ -14,8 +14,8 @@ public class GoodGrainsProductRepository {
         products.put(new Product("Tatarczuch bread", 11.50), 20);
     }
 
-    public Map<Product, Integer> getProducts() {
-        return products;
+    public int getProductQuantity(OrderRequest orderRequest) {
+        return products.get(orderRequest.getProduct());
     }
 
     public void updateSupplies(OrderRequest orderRequest) {
@@ -23,29 +23,6 @@ public class GoodGrainsProductRepository {
     }
 
     public boolean checkSupplies(OrderRequest orderRequest) {
-        if (products.get(orderRequest.getProduct()) >= orderRequest.getQuantity()) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GoodGrainsProductRepository that = (GoodGrainsProductRepository) o;
-        return Objects.equals(products, that.products);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(products);
-    }
-
-    @Override
-    public String toString() {
-        return "GoodGrainsProductRepository{" +
-                "products=" + products +
-                '}';
+        return products.get(orderRequest.getProduct()) >= orderRequest.getQuantity();
     }
 }
