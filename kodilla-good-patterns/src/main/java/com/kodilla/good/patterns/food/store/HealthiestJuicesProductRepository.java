@@ -24,6 +24,6 @@ public class HealthiestJuicesProductRepository {
     }
 
     public boolean checkSupplies(OrderRequest orderRequest) {
-        return (products.get(orderRequest.getProduct()) >= orderRequest.getQuantity()) ? true : false;
+        return products.get(orderRequest.getProduct()) >= orderRequest.getQuantity();
     }
 }

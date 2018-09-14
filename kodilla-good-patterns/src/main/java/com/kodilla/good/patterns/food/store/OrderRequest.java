@@ -1,5 +1,7 @@
 package com.kodilla.good.patterns.food.store;
 
+import java.util.Objects;
+
 public class OrderRequest {
 
     private Product product;
@@ -19,10 +21,24 @@ public class OrderRequest {
     }
 
     public String getProductName() {
-        return product.getName();
+        return product != null ? product.getName() : null;
     }
 
     public double getProductPrice() {
-        return product.getPrice();
+        return product != null ? product.getPrice() : 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderRequest that = (OrderRequest) o;
+        return quantity == that.quantity &&
+                Objects.equals(product, that.product);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product, quantity);
     }
 }
