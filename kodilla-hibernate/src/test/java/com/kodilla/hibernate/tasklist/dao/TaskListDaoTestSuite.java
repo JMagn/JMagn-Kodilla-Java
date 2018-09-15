@@ -16,19 +16,16 @@ public class TaskListDaoTestSuite {
 
     @Autowired
     private TaskListDao taskListDao;
-    private static final String NAME = "Submodule 13";
-    private static final String DESCRIPTION = "Learning Hibernate";
 
     @Test
     public void testFindByListName() {
         //Given
-        TaskList taskList = new TaskList(NAME, DESCRIPTION);
+        TaskList taskList = new TaskList("Submodule 13", "Learning Hibernate");
         taskListDao.save(taskList);
-        String taskListName = taskList.getListName();
         //When
-        List<TaskList> readTaskLists = taskListDao.findByListName(taskListName);
+        List<TaskList> readTaskLists = taskListDao.findByListName(taskList.getListName());
         //Then
-        Assert.assertEquals(NAME, readTaskLists.get(0).getListName());
+        Assert.assertEquals("Submodule 13", readTaskLists.get(0).getListName());
         Assert.assertEquals(1, readTaskLists.size());
         //CleanUp
         taskListDao.delete(taskList);
