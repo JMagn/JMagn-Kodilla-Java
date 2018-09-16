@@ -54,6 +54,9 @@ public class InvoiceDaoTestSuite {
         //Then
         Assert.assertNotEquals(0, id);
         Assert.assertEquals("2018/09/15/001", invoice.getNumber());
+        Assert.assertEquals(item1, invoice.getItems().get(0));
+        Assert.assertEquals(item2, invoice.getItems().get(1));
+        Assert.assertEquals(item3, invoice.getItems().get(2));
 
         //CleanUp
         invoiceDao.delete(id);
