@@ -3,6 +3,7 @@ package com.kodilla.hibernate.invoice;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ITEMS")
@@ -81,5 +82,35 @@ public class Item {
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return id == item.id &&
+                quantity == item.quantity &&
+                Objects.equals(product, item.product) &&
+                Objects.equals(price, item.price) &&
+                Objects.equals(value, item.value) &&
+                Objects.equals(invoice, item.invoice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, product, price, quantity, value, invoice);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", product=" + product +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", value=" + value +
+                ", invoice=" + invoice +
+                '}';
     }
 }
