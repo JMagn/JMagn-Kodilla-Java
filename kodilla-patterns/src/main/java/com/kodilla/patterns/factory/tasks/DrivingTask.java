@@ -1,8 +1,10 @@
 package com.kodilla.patterns.factory.tasks;
 
+import java.util.Objects;
+
 public final class DrivingTask implements Task {
 
-    private static final String EXECUTING = "%s to %s by %s.";
+    private static final String EXECUTING = "%s %s by %s.";
 
     private final String taskName;
     private final String where;
@@ -29,5 +31,31 @@ public final class DrivingTask implements Task {
     @Override
     public boolean isTaskExecuted() {
         return taskExecuted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DrivingTask that = (DrivingTask) o;
+        return taskExecuted == that.taskExecuted &&
+                Objects.equals(taskName, that.taskName) &&
+                Objects.equals(where, that.where) &&
+                Objects.equals(using, that.using);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskName, where, using, taskExecuted);
+    }
+
+    @Override
+    public String toString() {
+        return "DrivingTask{" +
+                "taskName='" + taskName + '\'' +
+                ", where='" + where + '\'' +
+                ", using='" + using + '\'' +
+                ", taskExecuted=" + taskExecuted +
+                '}';
     }
 }

@@ -1,5 +1,7 @@
 package com.kodilla.patterns.factory.tasks;
 
+import java.util.Objects;
+
 public final class ShoppingTask implements Task {
 
     private static final String EXECUTING = "%s %s %s.";
@@ -29,5 +31,31 @@ public final class ShoppingTask implements Task {
     @Override
     public boolean isTaskExecuted() {
         return taskExecuted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShoppingTask that = (ShoppingTask) o;
+        return Double.compare(that.quantity, quantity) == 0 &&
+                taskExecuted == that.taskExecuted &&
+                Objects.equals(taskName, that.taskName) &&
+                Objects.equals(whatToBuy, that.whatToBuy);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskName, whatToBuy, quantity, taskExecuted);
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingTask{" +
+                "taskName='" + taskName + '\'' +
+                ", whatToBuy='" + whatToBuy + '\'' +
+                ", quantity=" + quantity +
+                ", taskExecuted=" + taskExecuted +
+                '}';
     }
 }
