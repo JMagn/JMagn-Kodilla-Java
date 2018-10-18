@@ -101,6 +101,6 @@ public class TaxiOrderTestSuite {
         String description = theOrder.getDescription();
         //then
         assertEquals(new BigDecimal(52), theCost);
-        assertEquals("Drive a course by Taxi Network variant VIPg + child seat", description);
+        assertEquals("Drive a course by Taxi Network variant VIP + child seat", description);
     }
 }
