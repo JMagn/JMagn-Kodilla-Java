@@ -1,9 +1,7 @@
 package com.kodilla.patterns2.decorator.taxiportal;
 
 import org.junit.Test;
-
 import java.math.BigDecimal;
-
 import static org.junit.Assert.assertEquals;
 
 public class TaxiOrderTestSuite {
@@ -75,7 +73,7 @@ public class TaxiOrderTestSuite {
     }
 
     @Test
-    public void testTaxiVipExpressWithChildSeatExpressGetCost() {
+    public void testTaxiWithChildSeatExpress() {
         //given
         TaxiOrder theOrder = new BasicTaxiOrder();
         theOrder = new TaxiNetworkOrderDecorator(theOrder);
@@ -90,7 +88,7 @@ public class TaxiOrderTestSuite {
     }
 
     @Test
-    public void testVipTaxiWithChildSeatExpressGetDescription() {
+    public void testVipTaxiWithChildSeat() {
         //given
         TaxiOrder theOrder = new BasicTaxiOrder();
         theOrder = new TaxiNetworkOrderDecorator(theOrder);
