@@ -17,11 +17,17 @@ public class Facade {
     @Autowired
     EmployeeDao employeeDao;
 
-    public List<Company> findCompaniesByNameFragment(String arg) {
-        return companyDao.findCompaniesByNameFragment("%" + arg + "%");
-    }
+    public FindByNameResponse findByNameFragment(String arg) {
+        FindByNameResponse findByNameResponse = new FindByNameResponse();
 
-    public List<Employee> findEmployeesByNameFragment(String arg) {
-        return employeeDao.findEmployeesByNameFragment("%" + arg + "%");
+        List<Company> companiesByNameFragment = companyDao.findCompaniesByNameFragment("%" + arg + "%");
+        for (Company company: companiesByNameFragment) {
+            findByNameResponse.addCompany(company);
+        }
+        List<Employee> employeesByNameFragment = employeeDao.findEmployeesByNameFragment("%" + arg + "%");
+        for (Employee employee: employeesByNameFragment) {
+            findByNameResponse.addEmployee(employee);
+        }
+        return findByNameResponse;
     }
 }

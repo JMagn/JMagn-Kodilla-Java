@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -24,9 +26,12 @@ public class FacadeTestSuite {
     EmployeeDao employeeDao;
 
     @Test
-    public void testFindCompanyByNameFragment() {
+    public void testFindByNameFragment() {
 
         //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
         Company softwareMachine = new Company("Software Machine");
         Company dataMaesters = new Company("Data Maesters");
         Company greyMatter = new Company("Grey Matter");
@@ -38,49 +43,30 @@ public class FacadeTestSuite {
         int dataMaestersId = dataMaesters.getId();
         companyDao.save(greyMatter);
         int greyMatterId = greyMatter.getId();
-        List<Company> companiesByNameFragment = facade.findCompaniesByNameFragment("er");
-
-        //Then
-        Assert.assertEquals(2, companiesByNameFragment.size());
-        Assert.assertEquals("Data Maesters", companiesByNameFragment.get(0).getName());
-        Assert.assertEquals("Grey Matter", companiesByNameFragment.get(1).getName());
-
-        //CleanUp
-        try {
-            companyDao.delete(softwareMachineId);
-            companyDao.delete(dataMaestersId);
-            companyDao.delete(greyMatterId);
-        } catch (Exception e) {
-            //do nothing
-        }
-    }
-
-    @Test
-    public void testFindEmployeesByNameFragment() {
-
-        //Given
-        Employee johnSmith = new Employee("John", "Smith");
-        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
-        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
-
-        //When
         employeeDao.save(johnSmith);
         int johnSmithId = johnSmith.getId();
         employeeDao.save(stephanieClarckson);
         int stephanieClarcksonId = stephanieClarckson.getId();
         employeeDao.save(lindaKovalsky);
         int lindaKovalskyId = lindaKovalsky.getId();
-        List<Employee> employeesByNameFragment = facade.findEmployeesByNameFragment("mith");
+        FindByNameResponse response = facade.findByNameFragment("t");
 
         //Then
-        Assert.assertEquals(1, employeesByNameFragment.size());
-        Assert.assertEquals("Smith", employeesByNameFragment.get(0).getLastname());
+        Assert.assertEquals(3, response.getCompanies().size());
+        Assert.assertEquals(1, response.getEmployees().size());
+        Assert.assertEquals("Smith", response.getEmployees().get(0).getLastname());
+        Assert.assertEquals("Software Machine", response.getCompanies().get(0).getName());
+        Assert.assertEquals("Data Maesters", response.getCompanies().get(1).getName());
+        Assert.assertEquals("Grey Matter", response.getCompanies().get(2).getName());
 
         //CleanUp
         try {
             employeeDao.delete(johnSmithId);
             employeeDao.delete(stephanieClarcksonId);
             employeeDao.delete(lindaKovalskyId);
+            companyDao.delete(softwareMachineId);
+            companyDao.delete(dataMaestersId);
+            companyDao.delete(greyMatterId);
         } catch (Exception e) {
             //do nothing
         }
