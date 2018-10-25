@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FlightFinder {
-    private static final String FLIGHTSFROM = "Flights from %s:";
-    private static final String FLIGHTSTO = "Flights to %s:";
 
     private FlightBoard flights;
 

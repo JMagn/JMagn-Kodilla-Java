@@ -24,14 +24,6 @@ public class Flight {
         return arrivalAirport;
     }
 
-    public LocalTime getDepartureTime() {
-        return departureTime;
-    }
-
-    public LocalTime getArrivalTime() {
-        return arrivalTime;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -11,7 +11,7 @@ public class FlightFinderTestSuite {
         //Given
         FlightFinder flightFinder = new FlightFinder(new FlightBoard());
         //When
-        List<Flight> flightsFrom = flightFinder.findFlightsFrom("Cracow");
+        List<Flight> flightsFrom = flightFinder.findFlightsFrom("KRA");
         //Then
         Assert.assertEquals(3, flightsFrom.size());
     }
@@ -21,7 +21,7 @@ public class FlightFinderTestSuite {
         //Given
         FlightFinder flightFinder = new FlightFinder(new FlightBoard());
         //When
-        List<Flight> flightsTo = flightFinder.findFlightsTo("Warsaw");
+        List<Flight> flightsTo = flightFinder.findFlightsTo("WAR");
         //Then
         Assert.assertEquals(1, flightsTo.size());
     }
@@ -31,11 +31,8 @@ public class FlightFinderTestSuite {
         //Given
         FlightFinder flightFinder = new FlightFinder(new FlightBoard());
         //When
-        List<Flight> flights = flightFinder.findIndirectFlight("Cracow","Warsaw", "Gdansk");
+        List<Flight> flights = flightFinder.findIndirectFlight("KRA","WAR", "GDA");
         //Then
         Assert.assertEquals(2, flights.size());
-        for(Flight f: flights) {
-            System.out.println(f);
-        }
     }
 }
