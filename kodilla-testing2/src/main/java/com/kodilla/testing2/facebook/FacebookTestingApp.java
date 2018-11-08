@@ -28,6 +28,6 @@ public class FacebookTestingApp {
 
         WebElement selectComboYear = driver.findElement(By.xpath(XPATH_FILLYEAR));
         Select selectYear = new Select(selectComboYear);
-        selectYear.selectByIndex(19);
+        selectYear.selectByValue("2000");
     }
 }
