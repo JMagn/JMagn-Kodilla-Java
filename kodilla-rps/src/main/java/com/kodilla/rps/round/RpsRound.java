@@ -8,19 +8,18 @@ import java.util.Scanner;
 public class RpsRound {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private static int roundNumber = 1;
+    private int roundNumber;
 
-    public static RpsRoundResult playRound() {
-        RpsMenu.printRoundInstructions();
-        RpsMove playerMove = RpsMove.getPlayerMove(scanner.next());
-        RpsMove computerMove = RpsMove.getComputerMove();
-        RpsRoundResult roundResult = RpsMovesComparator.compare(playerMove, computerMove );
-        RpsMenu.printRoundResult(playerMove, computerMove, roundResult);
-        RpsRound.roundNumber++;
-        return roundResult;
+    public RpsRound(int roundNumber) {
+        this.roundNumber = roundNumber;
     }
 
-    public static int getRoundNumber() {
-        return roundNumber;
+    public RpsRoundResult playRound() {
+        RpsMenu.printRoundInstructions(roundNumber);
+        RpsMove playerMove = RpsMove.getPlayerMove(scanner.next());
+        RpsMove computerMove = RpsMove.getComputerMove();
+        RpsRoundResult roundResult = RpsMovesComparator.compare(playerMove, computerMove);
+        RpsMenu.printRoundResult(playerMove, computerMove, roundResult);
+        return roundResult;
     }
 }

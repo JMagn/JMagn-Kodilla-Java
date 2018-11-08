@@ -23,15 +23,8 @@ public enum RpsMove {
     }
 
     public static RpsMove getComputerMove() {
-        int n = random.nextInt(3);
-        switch (n) {
-            case 0:
-                return RpsMove.ROCK;
-            case 1:
-                return RpsMove.PAPER;
-            case 2:
-                return RpsMove.SCISSORS;
-        }
-        return RpsMove.BAD;
+        return getMoveByNumber(random.nextInt(3) + 3);
     }
+
+    public static RpsMove getMoveByNumber(int nr) {return RpsMove.values()[nr]; }
 }
