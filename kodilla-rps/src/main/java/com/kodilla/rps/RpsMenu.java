@@ -41,11 +41,13 @@ public class RpsMenu {
     public static void printRoundResult(RpsMove userMove, RpsMove computerMove, RpsRoundResult roundResult) {
         if (roundResult.equals(RpsRoundResult.REPLAY) || roundResult.equals(RpsRoundResult.END)) {
             System.out.println(String.format(UNFINISHED_GAME, roundResult));
-        } else if (roundResult.equals(RpsRoundResult.BAD)) {
-            System.out.println("Wrong key!");
         } else {
             System.out.println(String.format(ROUND_RESULT, userMove, computerMove, roundResult));
         }
+    }
+
+    public static void printWrongKeyInfo() {
+        System.out.println("Wrong key! Please try again.");
     }
 
     public static void printGameResult(int playerWins, int computerWins) {

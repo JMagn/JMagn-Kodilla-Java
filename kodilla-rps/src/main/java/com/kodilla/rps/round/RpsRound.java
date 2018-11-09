@@ -16,10 +16,24 @@ public class RpsRound {
 
     public RpsRoundResult playRound() {
         RpsMenu.printRoundInstructions(roundNumber);
-        RpsMove playerMove = RpsMove.getPlayerMove(scanner.next());
+        RpsMove playerMove = getPlayerMove();
         RpsMove computerMove = RpsMove.getComputerMove();
         RpsRoundResult roundResult = RpsMovesComparator.compare(playerMove, computerMove);
         RpsMenu.printRoundResult(playerMove, computerMove, roundResult);
         return roundResult;
+    }
+
+    private static RpsMove getPlayerMove() {
+        boolean rightMove = false;
+        RpsMove playerMove = null;
+        while (!rightMove) {
+            playerMove = RpsMove.mapPlayerMove(scanner.next());
+            if (!RpsMove.isRightMove(playerMove)) {
+                RpsMenu.printWrongKeyInfo();
+            } else {
+                rightMove = true;
+            }
+        }
+        return playerMove;
     }
 }

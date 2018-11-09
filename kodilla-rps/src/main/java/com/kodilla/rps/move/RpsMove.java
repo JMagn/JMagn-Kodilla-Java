@@ -14,7 +14,14 @@ public enum RpsMove {
         this.move = move;
     }
 
-    public static RpsMove getPlayerMove(String move) {
+    public static boolean isRightMove(RpsMove move) {
+        if (move.getMove().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static RpsMove mapPlayerMove(String move) {
         return Arrays.stream(values()).filter(x -> x.getMove().equalsIgnoreCase(move)).findFirst().orElse(BAD);
     }
 

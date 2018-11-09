@@ -15,11 +15,15 @@ public class RpsGame {
 
     public RpsGame(RpsGameDefinition rpsGameDefinition) {
         this.rpsGameDefinition = rpsGameDefinition;
+    }
+
+    private void initGame() {
         end = false;
         playerWins = 0;
         computerWins = 0;
         roundCounter = 0;
     }
+
     private void resolveRound(RpsRoundResult result) {
         switch (result) {
             case WIN:
@@ -36,8 +40,6 @@ public class RpsGame {
             case END:
                 endGame();
                 break;
-            case BAD:
-                break;
         }
     }
 
@@ -48,9 +50,7 @@ public class RpsGame {
 
     private void replayGame() {
         RpsMenu.printGameResult(playerWins, computerWins);
-        playerWins = 0;
-        computerWins = 0;
-        roundCounter = 0;
+        initGame();
     }
 
     private void endGame() {
@@ -61,7 +61,7 @@ public class RpsGame {
 
     public void play() {
         RpsMenu.printGameInstructions();
-
+        initGame();
         while (!end) {
             resolveRound(createNewRound().playRound());
 
