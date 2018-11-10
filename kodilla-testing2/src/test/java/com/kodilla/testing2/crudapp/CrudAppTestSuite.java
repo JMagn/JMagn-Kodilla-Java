@@ -1,5 +1,6 @@
 package com.kodilla.testing2.crudapp;
 
+import com.kodilla.testing2.TrelloAdmin;
 import com.kodilla.testing2.config.WebDriverConfig;
 import org.junit.After;
 import org.junit.Before;
@@ -10,6 +11,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.Random;
+import java.util.stream.Collectors;
+
+import static junit.framework.TestCase.assertTrue;
 
 public class CrudAppTestSuite {
 
@@ -71,9 +75,38 @@ public class CrudAppTestSuite {
         Thread.sleep(5000);
     }
 
+    private boolean checkTaskExistsInTrello(String taskName) throws InterruptedException {
+        final String TRELLO_URL = "https://trello.com/login";
+        boolean result = false;
+        WebDriver driverTrello = WebDriverConfig.getDriver(WebDriverConfig.FIREFOX);
+        driverTrello.get(TRELLO_URL);
+
+        driverTrello.findElement(By.id("user")).sendKeys(TrelloAdmin.getUser());
+        driverTrello.findElement(By.id("password")).sendKeys(TrelloAdmin.getPassword());
+        driverTrello.findElement(By.id("login")).submit();
+
+        Thread.sleep(2000);
+
+        driverTrello.findElements(By.xpath("//a[@class=\"board-tile\"]")).stream()
+                .filter(aHref -> aHref.findElements(By.xpath(".//span[@title=\"Kodilla Application\"]")).size() > 0)
+                .forEach(aHref -> aHref.click());
+
+        Thread.sleep(2000);
+
+        result = driverTrello.findElements(By.xpath("//span")).stream()
+                .filter(theSpan -> theSpan.getText().contains(taskName))
+                .collect(Collectors.toList())
+                .size() > 0;
+
+        driverTrello.close();
+
+        return result;
+    }
+
     @Test
     public void shouldCreateTrelloCard() throws InterruptedException {
         String taskName = createCrudAppTestTask();
         sendTestTaskToTrello(taskName);
+        assertTrue(checkTaskExistsInTrello(taskName));
     }
 }

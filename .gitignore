@@ -3,6 +3,7 @@
 */build/
 */out/
 !gradle/wrapper/gradle-wrapper.jar
+/kodilla-testing2/src/main/java/com/kodilla/testing2/TrelloAdmin.java
 
 ### STS ###
 .apt_generated
