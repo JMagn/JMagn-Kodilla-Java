@@ -50,6 +50,14 @@ public class RpsMenu {
         System.out.println("Wrong key! Please try again.");
     }
 
+    public static void printConfirmationRequest() {
+        System.out.println("Are you sure you want to end this game? [Y]es / [N]o");
+    }
+
+    public static void printNewMoveRequest() {
+        System.out.println("Please type your new move:");
+    }
+
     public static void printGameResult(int playerWins, int computerWins) {
         System.out.println(String.format(GAME_RESULT, playerWins, computerWins));
     }

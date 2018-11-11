@@ -23,9 +23,9 @@ public class RpsRound {
         return roundResult;
     }
 
-    private static RpsMove getPlayerMove() {
+    private RpsMove getPlayerMove() {
         boolean rightMove = false;
-        RpsMove playerMove = null;
+        RpsMove playerMove = RpsMove.BAD;
         while (!rightMove) {
             playerMove = RpsMove.mapPlayerMove(scanner.next());
             if (!RpsMove.isRightMove(playerMove)) {
@@ -34,6 +34,28 @@ public class RpsRound {
                 rightMove = true;
             }
         }
+        if (playerMove.equals(RpsMove.REPLAY) || playerMove.equals(RpsMove.END)) {
+            playerMove = confirmExit(playerMove);
+        }
         return playerMove;
+    }
+
+    private RpsMove confirmExit(RpsMove playerMove) {
+        RpsMenu.printConfirmationRequest();
+        RpsMove confirmedMove = playerMove;
+        boolean rightKey = false;
+        while (!rightKey) {
+            String answer = scanner.next();
+            if (answer.equalsIgnoreCase("y")) {
+                rightKey = true;
+            } else if (answer.equalsIgnoreCase("n")) {
+                RpsMenu.printNewMoveRequest();
+                confirmedMove = RpsMove.mapPlayerMove(scanner.next());
+                rightKey = true;
+            } else {
+                RpsMenu.printWrongKeyInfo();
+            }
+        }
+        return confirmedMove;
     }
 }
