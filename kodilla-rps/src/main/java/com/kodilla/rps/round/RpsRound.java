@@ -16,24 +16,15 @@ public class RpsRound {
 
     public RpsRoundResult playRound() {
         RpsMenu.printRoundInstructions(roundNumber);
-        RpsMove playerMove = getPlayerMove();
+        RpsMove playerMove = resolvePlayerMove();
         RpsMove computerMove = RpsMove.getComputerMove();
         RpsRoundResult roundResult = RpsMovesComparator.compare(playerMove, computerMove);
         RpsMenu.printRoundResult(playerMove, computerMove, roundResult);
         return roundResult;
     }
 
-    private RpsMove getPlayerMove() {
-        boolean rightMove = false;
-        RpsMove playerMove = RpsMove.BAD;
-        while (!rightMove) {
-            playerMove = RpsMove.mapPlayerMove(scanner.next());
-            if (!RpsMove.isRightMove(playerMove)) {
-                RpsMenu.printWrongKeyInfo();
-            } else {
-                rightMove = true;
-            }
-        }
+    private RpsMove resolvePlayerMove() {
+        RpsMove playerMove = getPlayerMove();
         if (playerMove.equals(RpsMove.REPLAY) || playerMove.equals(RpsMove.END)) {
             playerMove = confirmExit(playerMove);
         }
@@ -50,12 +41,26 @@ public class RpsRound {
                 rightKey = true;
             } else if (answer.equalsIgnoreCase("n")) {
                 RpsMenu.printNewMoveRequest();
-                confirmedMove = RpsMove.mapPlayerMove(scanner.next());
+                confirmedMove = getPlayerMove();
                 rightKey = true;
             } else {
                 RpsMenu.printWrongKeyInfo();
             }
         }
         return confirmedMove;
+    }
+
+    private RpsMove getPlayerMove() {
+        boolean rightMove = false;
+        RpsMove playerMove = RpsMove.BAD;
+        while (!rightMove) {
+            playerMove = RpsMove.mapPlayerMove(scanner.next());
+            if (!RpsMove.isRightMove(playerMove)) {
+                RpsMenu.printWrongKeyInfo();
+            } else {
+                rightMove = true;
+            }
+        }
+        return playerMove;
     }
 }
