@@ -11,7 +11,6 @@ import java.util.Random;
 public class CrudAppTestSuite {
 
     private static final String BASE_URL = "https://jmagn.github.io/";
-
     private WebDriver driver;
     private Random generator;
 
@@ -45,6 +44,19 @@ public class CrudAppTestSuite {
         WebElement addButton = driver.findElement(By.xpath(XPATH_ADD_BUTTON));
         addButton.click();
 
+        deleteCrudAppTestTask(taskName);
         Thread.sleep(2000);
+    }
+
+    private void deleteCrudAppTestTask(String taskName) throws InterruptedException {
+        Thread.sleep(5000);
+
+        driver.findElements(By.xpath("//form[@class=\"datatable__row\"]")).stream()
+                .filter(anyForm -> anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]"))
+                        .getText().equals(taskName))
+                .forEach(theForm -> {
+                    WebElement deleteButton = theForm.findElement(By.xpath(".//button[4]"));
+                    deleteButton.click();
+                });
     }
 }
