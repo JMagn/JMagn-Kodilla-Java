@@ -1,4 +1,5 @@
 package com.kodilla.testing2.crudapp;
+
 import com.kodilla.testing2.config.WebDriverConfig;
 import org.junit.After;
 import org.junit.Before;
