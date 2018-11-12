@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class RpsRound {
 
-    private static final Scanner scanner = new Scanner(System.in);
     private int roundNumber;
 
     public RpsRound(int roundNumber) {
@@ -24,42 +23,9 @@ public class RpsRound {
     }
 
     private RpsMove resolvePlayerMove() {
-        RpsMove playerMove = getPlayerMove();
+        RpsMove playerMove = RpsMenu.getPlayerMove();
         if (playerMove.equals(RpsMove.REPLAY) || playerMove.equals(RpsMove.END)) {
-            playerMove = confirmExit(playerMove);
-        }
-        return playerMove;
-    }
-
-    private RpsMove confirmExit(RpsMove playerMove) {
-        RpsMenu.printConfirmationRequest();
-        RpsMove confirmedMove = playerMove;
-        boolean rightKey = false;
-        while (!rightKey) {
-            String answer = scanner.next();
-            if (answer.equalsIgnoreCase("y")) {
-                rightKey = true;
-            } else if (answer.equalsIgnoreCase("n")) {
-                RpsMenu.printNewMoveRequest();
-                confirmedMove = getPlayerMove();
-                rightKey = true;
-            } else {
-                RpsMenu.printWrongKeyInfo();
-            }
-        }
-        return confirmedMove;
-    }
-
-    private RpsMove getPlayerMove() {
-        boolean rightMove = false;
-        RpsMove playerMove = RpsMove.BAD;
-        while (!rightMove) {
-            playerMove = RpsMove.mapPlayerMove(scanner.next());
-            if (!RpsMove.isRightMove(playerMove)) {
-                RpsMenu.printWrongKeyInfo();
-            } else {
-                rightMove = true;
-            }
+            playerMove = RpsMenu.confirmExit(playerMove);
         }
         return playerMove;
     }

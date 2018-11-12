@@ -14,6 +14,8 @@ public class RpsMenu {
     private static final String UNFINISHED_GAME = "\nYou chose to %s current game.";
     private static final String FAREWELL = "\nThank you for playing %s. See you next time!";
 
+    private static final Scanner scanner = new Scanner(System.in);
+
     private static void printOpeningMenu() {
         System.out.println("Welcome in Rock-Paper-Scissors game.\n\nPlease insert your name:");
     }
@@ -64,5 +66,38 @@ public class RpsMenu {
 
     public static void printFarewellMessage(String name) {
         System.out.println(String.format(FAREWELL, name));
+    }
+
+    public static RpsMove confirmExit(RpsMove playerMove) {
+        RpsMenu.printConfirmationRequest();
+        RpsMove confirmedMove = playerMove;
+        boolean rightKey = false;
+        while (!rightKey) {
+            String answer = scanner.next();
+            if (answer.equalsIgnoreCase("y")) {
+                rightKey = true;
+            } else if (answer.equalsIgnoreCase("n")) {
+                RpsMenu.printNewMoveRequest();
+                confirmedMove = getPlayerMove();
+                rightKey = true;
+            } else {
+                RpsMenu.printWrongKeyInfo();
+            }
+        }
+        return confirmedMove;
+    }
+
+    public static RpsMove getPlayerMove() {
+        boolean rightMove = false;
+        RpsMove playerMove = RpsMove.BAD;
+        while (!rightMove) {
+            playerMove = RpsMove.mapPlayerMove(scanner.next());
+            if (!RpsMove.isRightMove(playerMove)) {
+                RpsMenu.printWrongKeyInfo();
+            } else {
+                rightMove = true;
+            }
+        }
+        return playerMove;
     }
 }
