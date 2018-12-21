@@ -1,4 +1,4 @@
-package atm;
+package com.kodilla.steps.atm;
 
 public interface ATM {
 
