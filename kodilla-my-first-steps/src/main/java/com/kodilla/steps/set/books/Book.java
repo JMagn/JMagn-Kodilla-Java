@@ -1,4 +1,4 @@
-package com.kodilla.steps.set;
+package com.kodilla.steps.set.books;
 
 class Book {
 

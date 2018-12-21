@@ -1,4 +1,4 @@
-package com.kodilla.steps.set;
+package com.kodilla.steps.set.books;
 
 import java.util.HashSet;
 import java.util.Set;

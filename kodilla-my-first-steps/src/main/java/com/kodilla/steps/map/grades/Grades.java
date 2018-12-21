@@ -1,4 +1,4 @@
-package com.kodilla.steps.map;
+package com.kodilla.steps.map.grades;
 
 import java.util.List;
 
